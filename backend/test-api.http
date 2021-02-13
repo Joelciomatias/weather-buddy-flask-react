@@ -1,0 +1,18 @@
+
+
+@apiUrl = https://api.openweathermap.org/data/2.5/weather
+@token = xx
+@city = Curitiba
+
+GET {{apiUrl}}?q={{city}}&appid={{token}}
+
+
+####
+
+GET {{apiUrl}}/curitiba&appid={{token}}
+
+
+####
+
+GET {{apiUrl}}?max=3&appid={{token}}
+
