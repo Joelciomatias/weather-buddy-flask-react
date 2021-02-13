@@ -17,6 +17,6 @@
 
 # items = list(cache.items())
 
-# print(items.keys())
+# print(type(items))
 
 
