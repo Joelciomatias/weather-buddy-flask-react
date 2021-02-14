@@ -2,15 +2,14 @@
 
 @apiUrl = https://api.openweathermap.org/data/2.5/weather
 @flask_url=http://127.0.0.1:5000/
-@token = xx
+@token = 155a4457745da019871ac8d5348a9639
 @city = curitiba
 
 ###
-GET {{apiUrl}}?q={{city}}&appid={{token}}
-
+GET {{apiUrl}}?q={{city}}&appid={{token}}&units=metric
+# units=metric
 ###
 GET {{flask_url}}
-
 
 ###
 GET {{flask_url}}weather/{{city}}

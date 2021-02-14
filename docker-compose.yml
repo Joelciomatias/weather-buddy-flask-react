@@ -1,0 +1,18 @@
+version: '3.8'
+services: 
+    app: # name of the second service
+        build:  # specify the directory of the Dockerfile
+          context: ./
+          # dockerfile: dockerfile.be
+        ports:
+          - "3000:80" # maps port 8000 on localhost to 8000 in container
+ 
+    # api:
+    #     build: ./backend
+    #     ports: 
+    #         - 5000:5000
+     
+    #     environment: 
+    #         PORT: 5000
+    #         FLASK_DEBUG: 1
+  

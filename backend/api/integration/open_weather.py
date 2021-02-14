@@ -18,7 +18,9 @@ class WeatherApi(object):
         }
 
         params=[('q', query),
-            ('appid', self._api_token)]
+            ('units', 'metric'),
+            ('appid', self._api_token),
+            ]
 
         try:
             r = requests.get(url=self._api_url, headers=headers, params=params)
