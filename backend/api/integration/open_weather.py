@@ -23,9 +23,7 @@ class WeatherApi(object):
             ]
 
         try:
-            r = requests.get(url=self._api_url, headers=headers, params=params)
-            print(r)
-            return r.content
+            return requests.get(url=self._api_url, headers=headers, params=params)
 
         except Exception as ex:
             print("eRROR!",ex)

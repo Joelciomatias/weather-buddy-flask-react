@@ -1,7 +1,6 @@
-import json
 
 from cacheout import Cache
-from flask import Flask, jsonify, request
+from flask import Flask, request, abort
 from flask_cors import CORS, cross_origin
 
 from api.integration import weather_api
@@ -12,13 +11,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 cache = Cache(maxsize=1000, ttl=5 * 60)  # 5 minutes cache
 
-
-@app.route("/")
-@cross_origin()
-def helloWorld():
-    return "Hello, cross-origin-world!"
-
-
 @app.route('/weather/<city_name>', methods=["GET"])
 def get_city_weather(city_name):
 
@@ -27,10 +19,16 @@ def get_city_weather(city_name):
     if city_name in cache:
         city_wealth = cache.get(city_name)
         print("used-cache")
-    else:
-        city_wealth = weather_api.search_city(city_name)
+        
+    if city_wealth is None:
+        response = weather_api.search_city(city_name)
+        if response.status_code == 404:
+            return response.json()
+
+        city_wealth = response.json()
         cache.set(city_name, city_wealth)
 
+    print('res',city_wealth)
     return city_wealth
 
 
@@ -48,8 +46,7 @@ def get_city_history():
         inverted = list(reversed(items))
         items = inverted[:max_number]  # last n items from cache
 
-    # if len(items):
     for item in items:  # list of tuples
-        result.append({item[0]: json.loads(item[1].decode())})
+        result.append({item[0]: item[1]})
 
     return {'data': result}
