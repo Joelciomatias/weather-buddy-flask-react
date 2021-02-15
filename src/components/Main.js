@@ -1,5 +1,6 @@
 import React from 'react';
 
+import './Main.css';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -30,10 +31,21 @@ export default class Main extends React.Component {
     showError:false
   }
 
-  handleKeyPress(target) {
-    if(target.charCode==13){
-      // alert('Enter clicked!!!');   
-      this.fetchWealth(target)
+  onFormSubmit = e => {
+    e.preventDefault();
+    console.log(this)
+    this.fetchWealth(e)
+    
+    // send to server with e.g. `window.fetch`
+  }
+
+  handleKeyPress(e) {
+    // e.preventDefault();
+    if(e.charCode==13){
+      // console.log(this.cityRef.current.value)
+      // console.log(this.cityRef.current.value)
+      alert('Enter clicked!!!');   
+      // this.fetchWealth(e)
     } 
   }
   setShowError(showError) {
@@ -45,6 +57,7 @@ export default class Main extends React.Component {
     this.setShowError(false)
     var city = {}
     this.setState({ city:{} })
+    this.setState({ history:[] })
       axios.get(`http://localhost:5000/weather/${this.cityRef.current.value}`)
     .then(res => {
       console.log(res)
@@ -59,7 +72,15 @@ export default class Main extends React.Component {
         // this.cityRef.current.value = ""
       }
       console.log(city)
+    }).catch(e => {
+      console.error(e)
+    }).finally(()=>{
+      this.fetchHistory()
     })
+
+  }
+
+  fetchHistory(){
 
     axios.get(`http://localhost:5000/weather?max=${5}`)
     .then(res => {
@@ -84,21 +105,21 @@ export default class Main extends React.Component {
         <hr></hr>
         
         <Row className="justify-content-md-center">
-          <Form inline>
+          <Form onSubmit={this.onFormSubmit} inline>
             <p> How is the weather in
               {/* <input style={{'border-width':'0px','border': 'none'}} type="text" id="city" name="city" ref={(c) => this.city = c}/> */}
             <Form.Control onChange={e => this.setState({ cityName: e.target.value },this.setShowError(false))} 
-            onKeyPress={this.handleKeyPress}
-            ref={this.cityRef} style={{'borderWidth':'0px','border': 'none'}}  type="text" placeholder="city" />
+            
+            ref={this.cityRef} style={{'borderWidth':'0px','border': 'none','backgroundColor':'#fafafa','borderBottom':'1px solid gray'}}  type="text" />
                 now?
             </p>  
           </Form>
         </Row>
-        {
+        {/* {
           this.state.cityName &&
           <Button 
           className="mb-2"  onClick={this.fetchWealth}>Wealth</Button>
-        }
+        } */}
         <Row className="mt-5 justify-content-sm-center">
             {
               this.state.showError &&
@@ -111,15 +132,16 @@ export default class Main extends React.Component {
           }
         </Row>
 
+          {this.state.history.length &&
         <Row className="mt-5 justify-content-sm-center">
-        <CardDeck className="py-4 px-3" style={{ backgroundColor: "#D5F3FE" }}>
-        {this.state.history.map((city, idx)=>(
-          <WeatherCard city={city}/>
-        ))}
-
-        </CardDeck>
-
+            <CardDeck className="py-4 px-3" style={{ backgroundColor: "#D5F3FE" }}>
+            {this.state.history.map((city, idx)=>(
+            <WeatherCard key={idx} city={city}/>
+            ))}
+          </CardDeck>
         </Row>
+          }
+
       </Container>
     )
   }

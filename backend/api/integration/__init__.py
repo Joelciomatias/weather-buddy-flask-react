@@ -1,3 +1,5 @@
+"""Module for integration with external resources"""
+
 from .open_weather import WeatherApi
 from api.config import WEATHER_API_KEY, WEATHER_API_URL
 

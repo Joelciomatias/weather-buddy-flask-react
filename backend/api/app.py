@@ -1,6 +1,6 @@
-
+"""Main api module"""
 from cacheout import Cache
-from flask import Flask, request, abort
+from flask import Flask, request
 from flask_cors import CORS, cross_origin
 
 from api.integration import weather_api
@@ -11,14 +11,19 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 cache = Cache(maxsize=1000, ttl=5 * 60)  # 5 minutes cache
 
-@app.route('/weather/<city_name>', methods=["GET"])
-def get_city_weather(city_name):
 
+@app.route('/')
+def hello_world():
+    return 'This is a weather api'
+
+
+@app.route('/weather/<city_name>', methods=["GET"])
+def city_weather(city_name):
+    """Get the city wealth object by city name"""
     city_wealth = None
 
     if city_name in cache:
         city_wealth = cache.get(city_name)
-        print("used-cache")
 
     if city_wealth is None:
         response = weather_api.search_city(city_name)
@@ -28,12 +33,12 @@ def get_city_weather(city_name):
         city_wealth = response.json()
         cache.set(city_name, city_wealth)
 
-    print('res',city_wealth)
     return city_wealth
 
 
 @app.route('/weather', methods=["GET"])
-def get_city_history():
+def city_history():
+    """Get list of n cached cities"""
 
     result = []
     max_number = 5
