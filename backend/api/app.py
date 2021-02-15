@@ -19,7 +19,7 @@ def get_city_weather(city_name):
     if city_name in cache:
         city_wealth = cache.get(city_name)
         print("used-cache")
-        
+
     if city_wealth is None:
         response = weather_api.search_city(city_name)
         if response.status_code == 404:
@@ -47,6 +47,6 @@ def get_city_history():
         items = inverted[:max_number]  # last n items from cache
 
     for item in items:  # list of tuples
-        result.append({item[0]: item[1]})
+        result.append(item[1])
 
-    return {'data': result}
+    return {'history': result}

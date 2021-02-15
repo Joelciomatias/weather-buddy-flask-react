@@ -7,7 +7,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
+import CardDeck from 'react-bootstrap/CardDeck';
+import WeatherCard from './WeatherCard';
 
 export default class Main extends React.Component {
 
@@ -17,13 +18,15 @@ export default class Main extends React.Component {
     this.cityRef = React.createRef();
   }
 
-
-  
   state = {
-    history: [],
-    city:{name:""},
+    history: [{name: "Toronto", temp: "-6.18 °C", main: "Snow"},
+    {name: "Caracas", temp: "20.42 °C", main: "Clouds"},
+    {name: "Panama", temp: "22.96 °C", main: "Clouds"},
+    {name: "Bogotá", temp: "10 °C", main: "Clouds"}],
+    // city:{name:""}
+    // history:[],
     cityName:null,
-    // city:{'name':'curitiba','temp':'34 C','main':'Clouds'},
+    city:{'name':'curitiba','temp':'34 C','main':'Clouds'},
     showError:false
   }
 
@@ -60,8 +63,17 @@ export default class Main extends React.Component {
 
     axios.get(`http://localhost:5000/weather?max=${5}`)
     .then(res => {
-      console.log(res)
-      
+      console.log(res.data)
+      let cities = []
+      res.data.history.forEach((obj)=>{
+        cities.push({
+          name: obj.name,
+          temp: obj.main.temp + ' °C',
+          main: obj.weather[0].main,
+        })
+      })
+      console.log(cities)
+      this.setState({ history:cities });
     })
   }
 
@@ -87,8 +99,7 @@ export default class Main extends React.Component {
           <Button 
           className="mb-2"  onClick={this.fetchWealth}>Wealth</Button>
         }
-
-        <Row className="justify-content-md-center">
+        <Row className="mt-5 justify-content-sm-center">
             {
               this.state.showError &&
               <Alert  variant='danger' dismissible onClose={() => this.setShowError(false)}>
@@ -96,16 +107,18 @@ export default class Main extends React.Component {
               </Alert>
             }
           { this.state.city.name &&
-          <Card style={{ width: '18rem' }}>
-            <Card.Body>
-              <Card.Title>{this.state.city.name}</Card.Title>
-              <Card.Text style={{ fontSize: '3rem' }}>
-                {this.state.city.temp}
-              </Card.Text>
-              <Card.Subtitle className="mt-2">{this.state.city.main}</Card.Subtitle>
-            </Card.Body>
-          </Card>
+            <WeatherCard city={this.state.city}/>
           }
+        </Row>
+
+        <Row className="mt-5 justify-content-sm-center">
+        <CardDeck className="py-4 px-3" style={{ backgroundColor: "#D5F3FE" }}>
+        {this.state.history.map((city, idx)=>(
+          <WeatherCard city={city}/>
+        ))}
+
+        </CardDeck>
+
         </Row>
       </Container>
     )
