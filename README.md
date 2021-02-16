@@ -46,6 +46,17 @@ cd backend/ && python -m venv env && source env/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+
+##### environment variables:
+
+WEATHER_API_KEY - token from  [OpenWeather API](https://openweathermap.org/current) **(mandatory**)
+
+WEATHER_API_URL - Open Weather url `default(https://api.openweathermap.org/data/2.5/weather)`
+
+LAST_SEARCHED_CITIES - number of cities that will be stored in the cache `default(5)`
+
+CACHE_TIMEOUT - time in seconds that the cache will be maintained `default(300) - 5 minutes`
+
 ##### run project:
 
 ```bash

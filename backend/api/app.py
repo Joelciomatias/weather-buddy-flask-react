@@ -1,15 +1,15 @@
 """Main api module"""
-from cacheout import Cache
+
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 
+from api import cache
+from api.config import last_searched_cities
 from api.integration import weather_api
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-
-cache = Cache(maxsize=1000, ttl=5 * 60)  # 5 minutes cache
 
 
 @app.route('/')
@@ -41,7 +41,7 @@ def city_history():
     """Get list of n cached cities"""
 
     result = []
-    max_number = 5
+    max_number = last_searched_cities # default 5
     if request.args.get('max'):
         max_number = int(request.args.get('max'))
 
