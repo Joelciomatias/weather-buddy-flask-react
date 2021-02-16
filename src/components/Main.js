@@ -10,7 +10,7 @@ import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
 import CardDeck from 'react-bootstrap/CardDeck';
 import WeatherCard from './WeatherCard';
-
+import config from '../config'
 export default class Main extends React.Component {
 
   constructor(props){
@@ -58,7 +58,7 @@ export default class Main extends React.Component {
     var city = {}
     this.setState({ city:{} })
     this.setState({ history:[] })
-      axios.get(`http://localhost:5000/weather/${this.cityRef.current.value}`)
+      axios.get(`${config.apiUrl}/weather/${this.cityRef.current.value}`)
     .then(res => {
       console.log(res)
       
@@ -82,7 +82,7 @@ export default class Main extends React.Component {
 
   fetchHistory(){
 
-    axios.get(`http://localhost:5000/weather?max=${5}`)
+    axios.get(`${config.apiUrl}/weather?max=${5}`)
     .then(res => {
       console.log(res.data)
       let cities = []
