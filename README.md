@@ -2,20 +2,21 @@
 
 This project implements [OpenWeather API](https://openweathermap.org/current) and test my skills with react(javascript), flask(python) and some cache techniques.
 
-[Try this project on Heroku](https://weather-buddy-app.herokuapp.com/)
+
+<a href="https://weather-buddy-app.herokuapp.com" target="_blank">Try this project on Heroku!</a>
 
 There are both front-end and backend projects in this repository.
 ### Run project with docker
 In the project root directory:
 
-Create the **.env**  with the environment variables (see backend section below)
+Create the **.env** file with the environment variables (see backend section below)
 
 Run docker:
 
 ```
  docker-compose up -d
 ```
-
+And app will run in (http://localhost:3000)
 ### Set up development environment
 
 
