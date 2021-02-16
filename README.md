@@ -2,15 +2,19 @@
 
 This project implements [OpenWeather API](https://openweathermap.org/current) and test my skills with react(javascript), flask(python) and some cache techniques.
 
-#### Run project with docker
-In the project root directory run:
+[Try this project on Heroku](https://weather-buddy-app.herokuapp.com/)
+
+There are both front-end and backend projects in this repository.
+### Run project with docker
+In the project root directory:
+
+Create the **.env**  with the environment variables (see backend section below)
+
+Run docker:
 
 ```
  docker-compose up -d
 ```
-There are both front-end and backend projects in this repository.
-
-
 
 ### Set up development environment
 
@@ -51,9 +55,9 @@ pip install -r requirements.txt
 
 WEATHER_API_KEY - token from  [OpenWeather API](https://openweathermap.org/current) **(mandatory**)
 
-WEATHER_API_URL - Open Weather url `default(https://api.openweathermap.org/data/2.5/weather)`
+WEATHER_API_URL - Open Weather url `default (https://api.openweathermap.org/data/2.5/weather)`
 
-LAST_SEARCHED_CITIES - number of cities that will be stored in the cache `default(5)`
+LAST_SEARCHED_CITIES - number of cities that will be stored in the cache `default (5)`
 
 CACHE_TIMEOUT - time in seconds that the cache will be maintained `default(300) - 5 minutes`
 
