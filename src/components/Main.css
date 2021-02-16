@@ -1,4 +1,14 @@
-.input2 {
-    border-width:'0px' !important;
-    border: 'none' !important;
+
+.Container {
+    min-height: 60vh;
 }
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+ }
+ 
+ .row > div[class*='col-'] {
+   display: flex;
+ }
+ 

@@ -1,8 +1,11 @@
 "Main testing module"
 
-from api.app import city_history, city_weather, app, cache
-import requests
 import unittest
+
+import requests
+
+from api import cache
+from api.app import app, city_history, city_weather
 
 
 class TestApi(unittest.TestCase):

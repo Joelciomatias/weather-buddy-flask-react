@@ -6,8 +6,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">  
-        <Main/>
+        <h2 className="my-4">WHEATER BUDDY</h2>
+        <hr className="mx-5"></hr>
       </header>
+      <section className="App-body">
+        <Main />
+      </section>
     </div>
   );
 }

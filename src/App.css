@@ -3,29 +3,16 @@
   ;
 }
 
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   min-height: 10vh;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   /* color: white; */
 }
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-body {
+  font-size: calc(10px + 2vmin);
+  min-height: 90vh;
 }
