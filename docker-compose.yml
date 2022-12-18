@@ -5,7 +5,7 @@ services:
         build: 
             context: ./
         ports:
-            - "3000:80"
+            - "3005:80"
         networks:
             - mynetwork
         depends_on:
@@ -14,9 +14,9 @@ services:
         container_name: flask-api
         build: ./backend
         env_file:
-            - ./.env
+            - ./backend/.env
         ports: 
-            - 5000:5000
+            - 5010:5000
         networks:
             - mynetwork
 networks:

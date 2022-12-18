@@ -1,8 +1,8 @@
 
-FROM node:10-alpine as build-step
+FROM node:14.15.0-alpine as build-step
 RUN mkdir /app
 WORKDIR /app
-EXPOSE 3000
+EXPOSE 3005
 COPY package.json /app
 RUN npm install
 COPY . /app

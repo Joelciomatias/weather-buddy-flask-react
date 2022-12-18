@@ -62,6 +62,15 @@ LAST_SEARCHED_CITIES - number of cities that will be stored in the cache `defaul
 
 CACHE_TIMEOUT - time in seconds that the cache will be maintained `default(300) - 5 minutes`
 
+
+* created the file .env using the .env.template as templante
+* generate your api from on [OpenWeather API](https://openweathermap.org/current) website
+* export to the current python enviroment:
+
+```
+ export $(cat .env | xargs)
+```
+
 ##### run project:
 
 ```bash
